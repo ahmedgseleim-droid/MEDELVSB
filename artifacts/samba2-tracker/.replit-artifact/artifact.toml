@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = 'MEDEL SAMBA 2\ADhear tracker'
+version = "1.0.0"
+id = "artifacts/samba2-tracker"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19323
+
+[services.development]
+run = "pnpm --filter @workspace/samba2-tracker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/samba2-tracker", "run", "build" ]
+publicDir = "artifacts/samba2-tracker/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19323"
+BASE_PATH = "/"
